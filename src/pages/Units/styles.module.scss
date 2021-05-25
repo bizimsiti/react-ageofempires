@@ -1,0 +1,118 @@
+@import "../../assets/utilities/variables.scss";
+.container {
+  width: 100%;
+  height: auto;
+  padding-top: 200px;
+  background: url("../../assets/units_background_img.jpg");
+}
+.content_container {
+  max-width: 1000px;
+  padding: 50px;
+  background-color: #f3f3f3;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.ages {
+  ul {
+    display: flex;
+
+    li {
+      border-right: 1px solid $primary-color;
+      label {
+        .ages_text {
+          display: block;
+          position: relative;
+          width: 80px;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          font-size: 1.2rem;
+          color: $secondary-color;
+          cursor: pointer;
+          z-index: 1;
+          overflow: hidden;
+          &::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            transform: translateX(-100%);
+            width: inherit;
+            height: inherit;
+            background-color: $primary-color;
+            opacity: 1;
+            transition: all 0.2s;
+            z-index: -1;
+          }
+        }
+        input {
+          display: none;
+          &:checked + .ages_text::before {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          &:checked + .ages_text {
+            color: $white-text-color;
+          }
+        }
+      }
+    }
+  }
+}
+.costs {
+  margin-top: 20px;
+  ul {
+    li {
+      display: flex;
+      flex-direction: row;
+      padding: 10px 0;
+
+      .switch_checkbox {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+        input {
+          opacity: 0;
+          &:checked + .switch_slider {
+            background-color: $primary-color;
+          }
+          &:checked + .switch_slider::before {
+            -webkit-transform: translateX(25px);
+            -ms-transform: translateX(25px);
+            transform: translateX(25px);
+          }
+        }
+        .switch_slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: 0.4s;
+          transition: 0.4s;
+          &::before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+          }
+        }
+      }
+    }
+  }
+}
+.switch_checkbox_text {
+  display: inline-block;
+  padding-left: 10px;
+}
+.checkbox_container {
+  width: 105px;
+}

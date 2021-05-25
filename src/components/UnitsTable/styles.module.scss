@@ -1,0 +1,41 @@
+@import "../../assets/utilities/variables.scss";
+.container {
+  height: 500px;
+  margin-top: 20px;
+  overflow: auto;
+  border: 2px solid $primary-color;
+}
+.table {
+  border-collapse: collapse;
+  width: 100%;
+
+  text-align: center;
+
+  td,
+  tr,
+  th {
+    height: 50px;
+  }
+  thead,
+  tbody {
+    border: inherit;
+  }
+}
+thead {
+  background-color: $primary-color;
+  th {
+    border-right: 1px solid $secondary-color;
+  }
+}
+tbody {
+  tr {
+    &:hover {
+      cursor: pointer;
+      background-color: $secondary-color;
+      color: #f2f2f2;
+    }
+    td {
+      border: 1px solid $primary-color;
+    }
+  }
+}
