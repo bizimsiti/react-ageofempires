@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className={styles.container}>
-      <video muted loop>
+      <video autoPlay muted loop>
         <source src={intro} type="video/mp4" />
       </video>
       <div className={styles.content}>

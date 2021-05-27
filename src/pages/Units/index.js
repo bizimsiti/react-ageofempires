@@ -3,14 +3,39 @@ import styles from "./styles.module.scss";
 import MultiRange from "../../components/MultiRange";
 import { useState } from "react";
 import UnitsTable from "../../components/UnitsTable";
+import { useContext, useEffect } from "react";
+import UnitsContext from "../../contexts/UnitsContext";
 function Units() {
-  const costFilterValues = [
-    { name: "wood", isChecked: false },
-    { name: "food", isChecked: false },
-    { name: "gold", isChecked: false }
+  //define checkbox properties
+  const checkBoxes = [
+    { name: "Wood", isChecked: false },
+    { name: "Food", isChecked: false },
+    { name: "Gold", isChecked: false }
   ];
-  const [visible, setVisible] = useState(costFilterValues);
-  const handleVisible = (e) => {};
+
+  const { setAge } = useContext(UnitsContext);
+
+  const [checkBox, setCheckbox] = useState(checkBoxes);
+
+  const handleCheck = ({ target }) => {
+    const { name } = target;
+    const index = checkBox.findIndex((obj) => obj.name === name);
+    setCheckbox([
+      ...checkBox.slice(0, index),
+      { name, isChecked: target.checked },
+      ...checkBox.slice(index + 1)
+    ]);
+  };
+
+  //get age value and setAge
+  const changeAges = ({ target }) => {
+    setAge(target.value);
+  };
+
+  //set radio input "All" when component mounted
+  useEffect(() => {
+    setAge("All");
+  }, [setAge]);
   return (
     <div className={styles.container}>
       <div className={styles.content_container}>
@@ -18,31 +43,57 @@ function Units() {
           <ul>
             <li>
               <label>
-                <input type="radio" name="ages" value="all" defaultChecked />
+                <input
+                  type="radio"
+                  name="ages"
+                  value="All"
+                  defaultChecked
+                  onChange={changeAges}
+                />
                 <span className={styles.ages_text}>All</span>
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" name="ages" value="dark" />
+                <input
+                  type="radio"
+                  name="ages"
+                  value="Dark"
+                  onChange={changeAges}
+                />
                 <span className={styles.ages_text}>Dark</span>
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" name="ages" value="feudal" />
+                <input
+                  type="radio"
+                  name="ages"
+                  value="Feudal"
+                  onChange={changeAges}
+                />
                 <span className={styles.ages_text}>Feudal</span>
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" name="ages" value="castle" />
+                <input
+                  type="radio"
+                  name="ages"
+                  value="Castle"
+                  onChange={changeAges}
+                />
                 <span className={styles.ages_text}>Castle</span>
               </label>
             </li>
             <li>
               <label>
-                <input type="radio" name="ages" value="impreial" />
+                <input
+                  type="radio"
+                  name="ages"
+                  value="Imperial"
+                  onChange={changeAges}
+                />
                 <span className={styles.ages_text}>Impreial</span>
               </label>
             </li>
@@ -50,43 +101,28 @@ function Units() {
         </div>
         <div className={styles.costs}>
           <ul>
-            <li>
-              <div className={styles.checkbox_container}>
-                <label className={styles.switch_checkbox}>
-                  <input
-                    type="checkbox"
-                    name="wood"
-                    checked={visible}
-                    onChange={handleVisible}
-                  />
-                  <span className={styles.switch_slider}></span>
-                </label>
-                <span className={styles.switch_checkbox_text}>Wood</span>
-              </div>
-              <MultiRange name={"wood"} handleVisible={visible} />
-            </li>
-            <li>
-              <div className={styles.checkbox_container}>
-                <label className={styles.switch_checkbox}>
-                  <input type="checkbox" name="food" />
-                  <span className={styles.switch_slider}></span>
-                </label>
-                <span className={styles.switch_checkbox_text}>Food</span>
-              </div>
-
-              <MultiRange name={"food"} handleVisible={visible} />
-            </li>
-            <li>
-              <div className={styles.checkbox_container}>
-                <label className={styles.switch_checkbox}>
-                  <input type="checkbox" name="gold" />
-                  <span className={styles.switch_slider}></span>
-                </label>
-                <span className={styles.switch_checkbox_text}>Gold</span>
-              </div>
-
-              <MultiRange name={"gold"} handleVisible={visible} />
-            </li>
+            {checkBox.map((checkBox, i) => (
+              <li key={i}>
+                <div className={styles.checkbox_container}>
+                  <label className={styles.switch_checkbox}>
+                    <input
+                      type="checkbox"
+                      name={checkBox.name}
+                      value={checkBox.isChecked}
+                      onChange={handleCheck}
+                    />
+                    <span className={styles.switch_slider}></span>
+                  </label>
+                  <span className={styles.switch_checkbox_text}>
+                    {checkBox.name}
+                  </span>
+                </div>
+                <MultiRange
+                  name={checkBox.name}
+                  isChecked={checkBox.isChecked}
+                />
+              </li>
+            ))}
           </ul>
         </div>
         <div className={styles.unit_table}>
@@ -98,3 +134,12 @@ function Units() {
 }
 
 export default Units;
+/**
+ * 
+ * const changeAges = useCallback(
+    ({ target }) => {
+      setAge(target.value);
+    },
+    [setAge]
+  );
+ */

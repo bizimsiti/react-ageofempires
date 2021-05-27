@@ -36,3 +36,12 @@
 .hidden {
   visibility: hidden;
 }
+input[type="range"]:disabled {
+  background-color: #d5dbb3;
+  &::-webkit-slider-thumb {
+    background-color: #d5dbb3;
+  }
+  &::-moz-range-thumb {
+    background-color: #d5dbb3;
+  }
+}

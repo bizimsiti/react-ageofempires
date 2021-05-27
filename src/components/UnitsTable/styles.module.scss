@@ -23,6 +23,8 @@
 }
 thead {
   background-color: $primary-color;
+  position: sticky;
+  top: -10px;
   th {
     border-right: 1px solid $secondary-color;
   }
@@ -32,7 +34,7 @@ tbody {
     &:hover {
       cursor: pointer;
       background-color: $secondary-color;
-      color: #f2f2f2;
+      color: $white-text-color;
     }
     td {
       border: 1px solid $primary-color;

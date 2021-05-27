@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import UnitsContext from "../../contexts/UnitsContext";
 function UnitDetail() {
+  const { id } = useParams();
+
+  const { data: units } = useContext(UnitsContext);
+  const unit = units.filter((e) => e.id === parseInt(id));
   return (
     <div className={styles.container}>
       <h1>Unit Details</h1>
@@ -8,51 +15,51 @@ function UnitDetail() {
         <ul>
           <li>
             <span>ID:</span>
-            <span>1</span>
+            <span>{unit[0].id}</span>
           </li>
           <li>
             <span>Name:</span>
-            <span>1</span>
+            <span>{unit[0].name}</span>
           </li>
           <li>
             <span>Description:</span>
-            <span>1</span>
+            <span>{unit[0].description}</span>
           </li>
           <li>
             <span>Min. Required Age:</span>
-            <span>1</span>
+            <span>{unit[0].age}</span>
           </li>
           <li>
             <span>wood cost:</span>
-            <span>1</span>
+            <span>{unit[0].cost === null ? "no" : unit[0].cost.Wood}</span>
           </li>
           <li>
             <span>Food Cost:</span>
-            <span>1</span>
+            <span>{unit[0].cost === null ? "no" : unit[0].cost.Food}</span>
           </li>
           <li>
             <span>Gold Cost:</span>
-            <span>1</span>
+            <span>{unit[0].cost === null ? `no` : unit[0].cost.Gold}</span>
           </li>
           <li>
             <span>Build Time:</span>
-            <span>1</span>
+            <span>{unit[0].build_time}</span>
           </li>
           <li>
             <span>Reload Time:</span>
-            <span>1</span>
+            <span>{unit[0].reload_time}</span>
           </li>
           <li>
             <span>Hit Points:</span>
-            <span>1</span>
+            <span>{unit[0].hit_points}</span>
           </li>
           <li>
             <span>Attack:</span>
-            <span>23</span>
+            <span>{unit[0].attack}</span>
           </li>
           <li>
             <span>Accuracy:</span>
-            <span>19</span>
+            <span>{unit[0].accuracy}</span>
           </li>
         </ul>
       </div>
